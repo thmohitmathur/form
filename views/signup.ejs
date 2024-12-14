@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/sign.css">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<%- include("partials/header.ejs") %>
+
+
+
+
+   <section class="body">
+        <div class="container">
+            <div class="head">
+                <ul>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="#">|</a></li>
+                    <li><a href="/signup">Sign Up</a></li>
+                </ul>
+            </div>
+            <div class="bodyF">
+                <form action="/add" method="post">
+                    <label for="fullN">Full Name</label>
+                    <input autocomplete="off" type="text" name="fullN" required>
+                    <label for="email">Email</label>
+                    <input autocomplete="off" type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">                    <!-- <input autocomplete="off" type="email" name="email" required> -->
+                    <label for="number">Mobile Number</label>
+                    <input autocomplete="off" type="number" name="number" required>
+                    <label for="pass">password</label>
+                    <input type="password" name="pass" required>
+                    <div class="gen">
+                        <label for="genM">Male</label>
+
+                        <input type="radio" name="gen" value="Male">
+                        <label for="genF">Female</label>
+    
+                        <input type="radio" name="gen" value="Female">
+                        <label for="oth">Others</label>
+    
+                        <input type="radio" name="gen" value="Others">
+                    </div>
+                    
+                    <label for="adress">Address</label>
+                    <textarea name="adress" id="" cols="30" rows="10" required></textarea>
+                   
+                    <label for="city">City</label>
+                    <input autocomplete="off" type="text" name="city" required>
+
+                     <label for="state">state</label>
+                    <select name="state" id="">
+                        <option value="">Select a State</option>
+                        <% states.forEach(state => { %>
+                            <option value="<%=state%>"><%=state%></option>
+                       <%  }); %>
+                    </select>
+
+                    <label for="zip">Zip Code</label>
+                    <input autocomplete="off" type="number" name="zip" maxlength="6" id="" required>
+                    <button name="btn" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+   </section>
+</body>
+</html>
