@@ -1,6 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
+import nodemailer from "nodemailer";
+// avxo ujcq gncx sezj
 
 const db = new pg.Client({
     user: "postgres",
@@ -13,6 +15,35 @@ const db = new pg.Client({
 db.connect();
 const app = express();
 const port = 5000;
+
+const transporter = nodemailer.createTransport({
+    port: 465,
+    host: "smtp.gmail.com",
+    auth: {
+        user: 'mohit.dkv@gmail.com',
+        pass: 'avxo ujcq gncx sezj',
+    },
+    secure: true,
+});
+
+function sendMailto(rec){
+    transporter.sendMail(
+        {
+        from: "mohit.dkv@gmail.com",
+        to: rec,
+        subject: "Your registraiton has been completed",
+        text: "Now you are a proudfull member of the website",
+    
+    },  function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      }
+
+); 
+}
 
 var l = 1;
 
@@ -103,7 +134,7 @@ app.post("/add", async (req, res) => {
         const mcity = req.body.city;
         const mstate = req.body.state;
         const mzip = req.body.zip;
-    
+        sendMailto(mail);
         await db.query(" INSERT INTO user_information (full_name, email, phone_number, password, gender, address, city, state, zip_code) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING * ", [fullName, mail, mnum, mpass, gender, addr, mcity, mstate, mzip])
         res.redirect("/login");
     } catch(err){
